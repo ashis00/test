@@ -25,19 +25,21 @@ const musicIcon = document.querySelector('.rp-music__icon');
 const musicPlayer = document.getElementById('music-player');
 
 const youtubeVideoId = 'HBvG3pBIjp4';
+const youtubeRadioList = 'RDHBvG3pBIjp4';
 let musicFrame = null;
-let isPlaying = false;
+let isPlaying = true;
 
-function buildMusicUrl({ autoplay = true, muted = false } = {}) {
+function buildMusicUrl() {
   const params = new URLSearchParams({
-    autoplay: autoplay ? '1' : '0',
+    autoplay: '1',
     controls: '0',
     loop: '1',
     playlist: youtubeVideoId,
     rel: '0',
     modestbranding: '1',
     playsinline: '1',
-    mute: muted ? '1' : '0',
+    mute: '0',
+    list: youtubeRadioList,
     enablejsapi: '1'
   });
 
@@ -70,7 +72,7 @@ function setMusicState(nextState) {
   if (!musicFrame) return;
 
   if (nextState) {
-    musicFrame.src = buildMusicUrl({ autoplay: true, muted: false });
+    musicFrame.src = buildMusicUrl();
   } else {
     musicFrame.src = 'about:blank';
   }
@@ -97,6 +99,6 @@ if (audioToggle) {
     setMusicState(nextState);
   });
 
-  setAudioState(false);
-  setMusicState(false);
+  setAudioState(true);
+  setMusicState(true);
 }
